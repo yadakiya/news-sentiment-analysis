@@ -14,23 +14,28 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
       - name: Install TA-Lib system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential
-          sudo apt-get install -y wget
+          sudo apt-get install -y build-essential wget
+
           wget http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz
+
           tar -xzf ta-lib-0.4.0-src.tar.gz
-          cd ta-lib/
+
+          cd ta-lib
+
           ./configure --prefix=/usr
+
           make
+
           sudo make install
 
       - name: Install Python dependencies
